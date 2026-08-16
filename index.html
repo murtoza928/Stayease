@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StayEase | Hotel Complaint Management System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="toast" class="toast"></div>
+
+  <header class="topbar">
+    <a class="brand" href="#" data-page="home">
+      <span class="brand-mark">SE</span>
+      <span><strong>StayEase</strong><small>Hotel Complaint Management</small></span>
+    </a>
+    <nav>
+      <button class="nav-link active" data-page="home">Home</button>
+      <button class="nav-link" data-page="guest">Guest Portal</button>
+      <button class="nav-link" data-page="admin">Admin Dashboard</button>
+      <button class="nav-link" data-page="about">About</button>
+    </nav>
+    <button class="menu-btn" id="menuBtn">☰</button>
+  </header>
+
+  <main>
+    <!-- HOME -->
+    <section id="home" class="page active">
+      <div class="hero">
+        <div class="hero-copy">
+          <span class="eyebrow">SMART HOTEL SERVICE</span>
+          <h1>Every complaint deserves a <span>quick solution.</span></h1>
+          <p>StayEase helps hotel guests submit, track and resolve complaints while giving management a clear view of service quality.</p>
+          <div class="hero-actions">
+            <button class="btn primary" data-page="guest">Submit a Complaint →</button>
+            <button class="btn secondary" data-page="admin">Open Admin Dashboard</button>
+          </div>
+          <div class="trust-row">
+            <span>✓ Easy submission</span><span>✓ Live status tracking</span><span>✓ Centralized records</span>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div class="room-illustration">
+            <div class="bed"></div><div class="lamp"></div><div class="window"></div>
+          </div>
+          <div class="mini-ticket">
+            <div><span class="dot green"></span><b>Complaint #CMP-1001</b></div>
+            <span class="status resolved">Resolved</span>
+          </div>
+          <div class="mini-ticket">
+            <div><span class="dot orange"></span><b>Complaint #CMP-1002</b></div>
+            <span class="status progress">In Progress</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-heading">
+        <span class="eyebrow">HOW IT WORKS</span>
+        <h2>Simple for guests. Powerful for management.</h2>
+      </div>
+      <div class="steps">
+        <article><div class="step-no">01</div><h3>Submit</h3><p>Guest enters room information, category and complaint details.</p></article>
+        <article><div class="step-no">02</div><h3>Track</h3><p>Each complaint receives a unique ID and status that can be tracked.</p></article>
+        <article><div class="step-no">03</div><h3>Resolve</h3><p>Admin updates progress and closes the complaint after resolution.</p></article>
+      </div>
+
+      <div class="feature-grid">
+        <article class="feature-card"><span>📋</span><h3>Organized Records</h3><p>Keep complaints in one searchable place.</p></article>
+        <article class="feature-card"><span>🔎</span><h3>Fast Search</h3><p>Find complaints by ID, room, guest or category.</p></article>
+        <article class="feature-card"><span>📊</span><h3>Service Insights</h3><p>See complaint statistics at a glance.</p></article>
+        <article class="feature-card"><span>⭐</span><h3>Guest Feedback</h3><p>Collect a rating after a complaint is resolved.</p></article>
+      </div>
+    </section>
+
+    <!-- GUEST -->
+    <section id="guest" class="page">
+      <div class="page-title">
+        <div><span class="eyebrow">GUEST PORTAL</span><h1>How can we help?</h1><p>Submit a complaint or track an existing complaint.</p></div>
+        <button class="btn secondary" id="trackScrollBtn">Track Complaint</button>
+      </div>
+
+      <div class="two-col">
+        <form id="complaintForm" class="panel">
+          <div class="panel-head"><div><h2>Submit a Complaint</h2><p>Tell us what went wrong.</p></div><span class="panel-icon">✦</span></div>
+          <div class="form-grid">
+            <label>Guest Name<input id="guestName" required placeholder="e.g. Rahim Ahmed"></label>
+            <label>Room Number<input id="roomNumber" required placeholder="e.g. 405"></label>
+            <label>Email<input id="guestEmail" type="email" required placeholder="guest@example.com"></label>
+            <label>Complaint Category
+              <select id="category" required>
+                <option value="">Select category</option><option>Room Service</option><option>Cleanliness</option>
+                <option>Maintenance</option><option>Food & Restaurant</option><option>Staff Behavior</option>
+                <option>Wi-Fi</option><option>Other</option>
+              </select>
+            </label>
+            <label class="full">Priority
+              <select id="priority"><option>Normal</option><option>High</option><option>Urgent</option></select>
+            </label>
+            <label class="full">Complaint Description<textarea id="description" required rows="5" placeholder="Please describe the problem clearly..."></textarea></label>
+          </div>
+          <button class="btn primary full-btn" type="submit">Submit Complaint</button>
+          <p class="form-note">Your complaint will receive a unique tracking ID.</p>
+        </form>
+
+        <div class="panel track-panel" id="trackPanel">
+          <div class="panel-head"><div><h2>Track Complaint</h2><p>Enter your complaint ID.</p></div><span class="panel-icon">⌁</span></div>
+          <div class="track-box">
+            <input id="trackId" placeholder="e.g. CMP-1001">
+            <button class="btn primary" id="trackBtn">Track</button>
+          </div>
+          <div id="trackResult" class="empty-state"><span>🔍</span><h3>No complaint selected</h3><p>Enter an ID above to see its current status.</p></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><div><h2>My Recent Complaints</h2><p>Complaints stored in this browser.</p></div></div>
+        <div id="guestComplaints"></div>
+      </div>
+    </section>
+
+    <!-- ADMIN -->
+    <section id="admin" class="page">
+      <div class="page-title">
+        <div><span class="eyebrow">MANAGEMENT AREA</span><h1>Admin Dashboard</h1><p>Monitor and manage hotel complaints.</p></div>
+        <button class="btn secondary" id="seedBtn">Reset Demo Data</button>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><span>Total Complaints</span><strong id="totalCount">0</strong><i>▣</i></div>
+        <div class="stat"><span>Pending</span><strong id="pendingCount">0</strong><i>◷</i></div>
+        <div class="stat"><span>In Progress</span><strong id="progressCount">0</strong><i>↻</i></div>
+        <div class="stat"><span>Resolved</span><strong id="resolvedCount">0</strong><i>✓</i></div>
+      </div>
+
+      <div class="panel">
+        <div class="toolbar">
+          <div><h2>All Complaints</h2><p>Update status and manage records.</p></div>
+          <div class="filters">
+            <input id="adminSearch" placeholder="Search complaints...">
+            <select id="statusFilter"><option value="All">All Status</option><option>Pending</option><option>In Progress</option><option>Resolved</option></select>
+            <select id="categoryFilter"><option value="All">All Categories</option><option>Room Service</option><option>Cleanliness</option><option>Maintenance</option><option>Food & Restaurant</option><option>Staff Behavior</option><option>Wi-Fi</option><option>Other</option></select>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table><thead><tr><th>ID</th><th>Guest / Room</th><th>Category</th><th>Priority</th><th>Date</th><th>Status</th><th>Action</th></tr></thead>
+          <tbody id="complaintTable"></tbody></table>
+        </div>
+        <div id="noRows" class="empty-state hidden"><span>📭</span><h3>No complaints found</h3><p>Try another search or filter.</p></div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="page">
+      <div class="about-hero"><span class="eyebrow">ABOUT THE PROJECT</span><h1>Hotel Complaint Management System</h1><p>A simple web-based solution for handling guest complaints efficiently.</p></div>
+      <div class="feature-grid">
+        <article class="feature-card"><span>👤</span><h3>Guest Module</h3><p>Guests can submit complaints and track their status using a complaint ID.</p></article>
+        <article class="feature-card"><span>🛡️</span><h3>Admin Module</h3><p>Management can search, filter and update complaint status.</p></article>
+        <article class="feature-card"><span>💾</span><h3>Local Storage</h3><p>Data is saved in the browser using JavaScript Local Storage for this front-end project.</p></article>
+      </div>
+      <div class="panel tech-panel"><h2>Technologies Used</h2><div class="tech-list"><span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>Local Storage</span><span>Responsive UI</span></div></div>
+    </section>
+  </main>
+
+  <footer><div><strong>StayEase</strong> — Hotel Complaint Management System</div><div>Desktop & Web Programming Project • 2026</div></footer>
+
+  <div id="modal" class="modal hidden">
+    <div class="modal-card"><button class="close" id="closeModal">×</button><div id="modalContent"></div></div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
