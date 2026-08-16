@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StayEase | Hotel Complaint Management</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+<div id="toast" class="toast"></div>
+
+<header class="topbar">
+  <a href="#" class="brand" data-page="home"><span class="brand-mark">SE</span><span><b>StayEase</b><small>Hotel Complaint Management</small></span></a>
+  <nav id="mainNav">
+    <button class="nav-link active" data-page="home">Home</button>
+    <button class="nav-link" data-page="guest">Guest Portal</button>
+    <button class="nav-link" data-page="admin">Admin Dashboard</button>
+    <button class="nav-link" data-page="about">About</button>
+  </nav>
+  <div class="header-tools">
+    <button class="theme-btn" id="themeBtn" title="Toggle theme">☾</button>
+    <span id="sessionLabel" class="session-label"></span>
+    <button class="btn secondary mini" id="authBtn">Login / Register</button>
+    <button class="btn danger mini hidden" id="logoutBtn">Logout</button>
+  </div>
+  <button class="menu-btn" id="menuBtn">☰</button>
+</header>
+
+<main>
+<section id="home" class="page active">
+  <div class="hero">
+    <div class="hero-copy reveal">
+      <span class="eyebrow">SMART HOTEL SERVICE</span>
+      <h1>Turn every complaint into a <span>better stay.</span></h1>
+      <p>StayEase gives guests a simple way to report problems and gives hotel management a focused dashboard to resolve them.</p>
+      <div class="hero-actions">
+        <button class="btn primary" data-page="guest">Submit a Complaint →</button>
+        <button class="btn secondary" data-page="admin">Open Admin Dashboard</button>
+      </div>
+      <div class="trust-row"><span>✓ Easy submission</span><span>✓ ID-based tracking</span><span>✓ Admin-only management</span></div>
+    </div>
+    <div class="hero-visual reveal delay-1">
+      <div class="orb"></div><div class="hotel-card">
+        <div class="hotel-top"><span class="live-dot"></span><b>StayEase Service Center</b><span>●</span></div>
+        <div class="visual-room"><div class="window"></div><div class="bed"></div><div class="lamp"></div></div>
+        <div class="ticket"><div><span class="ticket-dot"></span><b>Complaint tracking</b><small>Use a simple ID like C001</small></div><span class="floating-check">✓</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="section-heading reveal"><span class="eyebrow">HOW IT WORKS</span><h2>Simple for guests. Powerful for management.</h2></div>
+  <div class="steps">
+    <article class="step-card reveal"><span>01</span><h3>Submit</h3><p>Guest logs in and sends a complaint with room, category, priority and details.</p></article>
+    <article class="step-card reveal delay-1"><span>02</span><h3>Track</h3><p>The system creates a simple unique complaint ID such as C001.</p></article>
+    <article class="step-card reveal delay-2"><span>03</span><h3>Resolve</h3><p>Only an authenticated admin can see complaints and update their status.</p></article>
+  </div>
+  <div class="feature-grid">
+    <article class="feature-card reveal"><span>🔐</span><h3>Role Based Access</h3><p>Guest and admin areas are protected separately.</p></article>
+    <article class="feature-card reveal delay-1"><span>🔎</span><h3>Fast Tracking</h3><p>Guests only need their complaint ID to check status.</p></article>
+    <article class="feature-card reveal delay-2"><span>📊</span><h3>Admin Insights</h3><p>Management gets clear complaint statistics.</p></article>
+    <article class="feature-card reveal delay-3"><span>🌙</span><h3>Light & Dark</h3><p>Switch the interface theme anytime.</p></article>
+  </div>
+</section>
+
+<section id="guest" class="page">
+  <div class="page-title reveal"><div><span class="eyebrow">GUEST PORTAL</span><h1>Your voice matters.</h1><p>Submit a new complaint or track one using its complaint ID.</p></div><div class="page-actions"><button class="btn secondary" id="profileBtn">My Profile</button></div></div>
+  <div class="notice reveal"><span>🔒</span><div><b>Guest access</b><p>Complaints are visible only to hotel administrators. You can track your complaint using its ID.</p></div></div>
+  <div class="two-col">
+    <form id="complaintForm" class="panel reveal">
+      <div class="panel-head"><div><h2>Submit a Complaint</h2><p>Describe the issue clearly.</p></div><span class="panel-icon">✦</span></div>
+      <div class="form-grid">
+        <label>Guest Name<input id="guestName" required readonly></label>
+        <label>Room Number<input id="roomNumber" required placeholder="e.g. 405"></label>
+        <label>Email<input id="guestEmail" type="email" required readonly></label>
+        <label>Category<select id="category" required><option value="">Select category</option><option>Room Service</option><option>Cleanliness</option><option>Maintenance</option><option>Food & Restaurant</option><option>Staff Behavior</option><option>Wi-Fi</option><option>Other</option></select></label>
+        <label class="full">Priority<select id="priority"><option>Normal</option><option>High</option><option>Urgent</option></select></label>
+        <label class="full">Complaint Description<textarea id="description" required rows="5" placeholder="Explain the problem..."></textarea></label>
+      </div>
+      <button class="btn primary full-btn" type="submit">Create Complaint ID</button>
+      <p class="form-note">A simple unique ID will be generated automatically.</p>
+    </form>
+    <div class="panel reveal delay-1" id="trackPanel">
+      <div class="panel-head"><div><h2>Track Complaint</h2><p>Only the complaint ID is required.</p></div><span class="panel-icon">⌁</span></div>
+      <div class="track-box"><input id="trackId" placeholder="e.g. C001"><button class="btn primary" id="trackBtn">Track</button></div>
+      <div id="trackResult" class="empty-state"><span>🔍</span><h3>Nothing to show yet</h3><p>Enter your complaint ID to see its current status.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="admin" class="page">
+  <div class="page-title reveal"><div><span class="eyebrow">MANAGEMENT AREA</span><h1>Admin Dashboard</h1><p>Only an authenticated admin can view and manage complaints.</p></div><button class="btn secondary" id="adminProfileBtn">My Profile</button></div>
+  <div class="notice admin-notice reveal"><span>🛡️</span><div><b>Administrator only</b><p>Guest accounts cannot view, search or update complaint records.</p></div></div>
+  <div class="stats">
+    <div class="stat reveal"><span>Total Complaints</span><strong id="totalCount">0</strong><i>▣</i></div>
+    <div class="stat reveal delay-1"><span>Pending</span><strong id="pendingCount">0</strong><i>◷</i></div>
+    <div class="stat reveal delay-2"><span>In Progress</span><strong id="progressCount">0</strong><i>↻</i></div>
+    <div class="stat reveal delay-3"><span>Resolved</span><strong id="resolvedCount">0</strong><i>✓</i></div>
+  </div>
+  <div class="panel reveal">
+    <div class="toolbar"><div><h2>Complaint Records</h2><p>All records are created by guests and managed here.</p></div><div class="filters"><input id="adminSearch" placeholder="Search ID, guest, room..."><select id="statusFilter"><option>All Status</option><option>Pending</option><option>In Progress</option><option>Resolved</option></select><select id="categoryFilter"><option>All Categories</option><option>Room Service</option><option>Cleanliness</option><option>Maintenance</option><option>Food & Restaurant</option><option>Staff Behavior</option><option>Wi-Fi</option><option>Other</option></select></div></div>
+    <div class="table-wrap"><table><thead><tr><th>ID</th><th>Guest / Room</th><th>Category</th><th>Priority</th><th>Date</th><th>Status</th><th>Action</th></tr></thead><tbody id="complaintTable"></tbody></table></div>
+    <div id="noRows" class="empty-state hidden"><span>📭</span><h3>No complaint records</h3><p>New complaints will appear here after a guest submits one.</p></div>
+  </div>
+</section>
+
+<section id="about" class="page">
+  <div class="about-hero reveal"><span class="eyebrow">ABOUT THE PROJECT</span><h1>Hotel Complaint Management System</h1><p>A clean HTML, CSS and JavaScript project for managing hotel guest complaints.</p></div>
+  <div class="feature-grid"><article class="feature-card reveal"><span>👤</span><h3>Guest Module</h3><p>Register, login, submit complaints and track them by ID.</p></article><article class="feature-card reveal delay-1"><span>🛡️</span><h3>Admin Module</h3><p>Only admins can view records, search them and update status.</p></article><article class="feature-card reveal delay-2"><span>💾</span><h3>Local Storage</h3><p>Users, sessions and complaints are stored in the browser for this course project.</p></article><article class="feature-card reveal delay-3"><span>🎨</span><h3>Modern UI</h3><p>Responsive layout, light/dark mode and subtle professional animations.</p></article></div>
+</section>
+
+<section id="auth" class="page">
+  <div class="auth-shell reveal">
+    <div class="auth-intro"><span class="eyebrow">SECURE ACCESS</span><h1>Welcome to <span>StayEase</span></h1><p>Choose your account type and access the right area.</p><div class="auth-points"><div>✓ Guest complaint submission & tracking</div><div>✓ Admin-only complaint management</div><div>✓ Profile and credential controls</div></div></div>
+    <div class="auth-card">
+      <div class="auth-tabs"><button class="auth-tab active" data-auth-tab="login">Login</button><button class="auth-tab" data-auth-tab="register">Registration</button></div>
+      <div id="loginBox"><div class="role-switch"><button class="role-btn active" data-login-role="guest">Guest Login</button><button class="role-btn" data-login-role="admin">Admin Login</button></div>
+        <form id="loginForm"><input type="hidden" id="loginRole" value="guest"><label>Username<input id="loginUsername" required placeholder="Enter username"></label><label>Password<input id="loginPassword" type="password" required placeholder="Enter password"></label><button class="btn primary full-btn">Login</button></form>
+        <p class="auth-help" id="loginHelp">Guest accounts can submit and track complaints.</p>
+      </div>
+      <div id="registerBox" class="hidden"><div class="role-switch"><button class="role-btn active" data-register-role="guest">Guest Registration</button><button class="role-btn" data-register-role="admin">Admin Registration</button></div>
+        <form id="registerForm"><input type="hidden" id="registerRole" value="guest"><label>Full Name<input id="registerName" required></label><label>Username<input id="registerUsername" required minlength="3"></label><label>Email<input id="registerEmail" type="email" required></label><label>Password<input id="registerPassword" type="password" required minlength="4"></label><label>Confirm Password<input id="registerConfirm" type="password" required></label><label id="roomRegisterLabel">Room Number<input id="registerRoom" placeholder="e.g. 405"></label><button class="btn primary full-btn">Create Account</button></form>
+        <p class="auth-help">After registration, you must log in manually.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div><b>StayEase</b> — Hotel Complaint Management System</div><div>Desktop & Web Programming Project • 2026</div></footer>
+
+<div id="profileModal" class="modal hidden"><div class="modal-card"><button class="close" data-close="profileModal">×</button><div id="profileContent"></div></div></div>
+<div id="detailModal" class="modal hidden"><div class="modal-card"><button class="close" data-close="detailModal">×</button><div id="detailContent"></div></div></div>
+<div id="successModal" class="modal hidden"><div class="modal-card success-card"><div class="success-icon">✓</div><h2 id="successTitle">Account Created</h2><p id="successText"></p><button class="btn primary full-btn" id="successLoginBtn">Go to Login</button></div></div>
+
+<script src="script.js"></script>
+</body>
+</html>
